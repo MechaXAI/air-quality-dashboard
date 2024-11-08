@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 import plotly.express as px
 import plotly.graph_objects as go
 import locale
-locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
 
 def show_data_grid(df: pd.DataFrame):
 
@@ -37,7 +37,7 @@ def main():
         aire impacta tu bienestar y toma decisiones informadas para protegerte a ti y a tu familia. \
         🔍 Actualizaciones continuas y alertas para que estés siempre al tanto. Ideal para residentes, visitantes, y profesionales en salud ambiental"
     })
-    
+
     st.title("Miraflores Respira 🍃")
 
     df = pd.read_csv('data/air_qa.csv')
