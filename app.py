@@ -53,7 +53,7 @@ def main():
 
     df_filtered = df[df["Year"].isin(year_filter) & (
         df["Temperatura (C)"] >= temp_min) & (df["Temperatura (C)"] <= temp_max)]
-
+    df_filtered.drop(columns=['Year'], inplace=True)
     show_data_grid(df_filtered)
 
     average_temp = round(df_filtered["Temperatura (C)"].mean(), 1)
