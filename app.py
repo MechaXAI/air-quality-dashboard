@@ -98,9 +98,9 @@ def crear_mapa_de_gases(df):
 
     # Mostrar el gráfico
     st.plotly_chart(fig)
-    with st.expander("Ver más", expanded=False):
-        st.write("Se muestra en el mapa la concentración de los gases reportada por los sensores de cada estación.")
-        
+    with st.expander("🤔 Ver más", expanded=False):
+        st.write(
+            "Se muestra en el mapa la concentración de los gases reportada por los sensores de cada estación.")
 
 
 def calculate_avg_and_delta(df, year_filter, column_name):
@@ -129,13 +129,15 @@ def grafico_acumulacion_gases(df_1):
     anios = df_1['Fecha_Filtrado'].dt.year.unique()
     meses = df_1['Fecha_Filtrado'].dt.month.unique()
     meses_nombres = {calendar.month_name[mes]: mes for mes in meses}
+    anio_seleccionado = anios[-1]
     anio, mes = st.columns(2)
     with anio:
         anio_seleccionado = st.selectbox('Selecciona el Año:', anios)
+
     with mes:
         mes_nombre_seleccionado = st.selectbox(
             'Selecciona el Mes:',
-            sorted(meses_nombres.keys())
+            list(meses_nombres.keys())
         )
     mes_seleccionado = meses_nombres[mes_nombre_seleccionado]
     df_filtrado = df_1[(df_1['Fecha_Filtrado'].dt.year == anio_seleccionado) & (
@@ -150,7 +152,8 @@ def grafico_acumulacion_gases(df_1):
         df_filtrado['H2S (ug/m3)'] = df_filtrado['H2S (ug/m3)'].astype(float)
         df_filtrado = df_filtrado[[
             'Fecha', 'CO (ug/m3)', 'H2S (ug/m3)', 'NO2 (ug/m3)', 'O3 (ug/m3)', 'PM10 (ug/m3)', 'PM2.5 (ug/m3)']]
-        st.write(f'Datos para {mes_nombre_seleccionado} de {anio_seleccionado}:')
+        st.write(
+            f'Datos para {mes_nombre_seleccionado} de {anio_seleccionado}:')
         st.dataframe(df_filtrado)
 
     if not df_filtrado.empty:
@@ -161,14 +164,15 @@ def grafico_acumulacion_gases(df_1):
                      labels={'Fecha': 'Fecha',
                              'value': 'Concentración (ug/m3)',
                              'variable': 'Gases'},
-                     title=f'Concentraciones de Gases en {anio_seleccionado}-{mes_nombre_seleccionado}')
+                     title=f'Concentraciones de Gases en {mes_nombre_seleccionado} del {anio_seleccionado}')
 
         # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
     else:
         st.write("No hay datos para el año y mes seleccionados.")
-    with st.expander("Ver más", expanded=False):
-        st.write("Se muestra en el mapa la concentración de los gases reportada por los sensores de cada estación.")
+    with st.expander("🤔 Ver más", expanded=False):
+        st.write(
+            "Se muestra en el mapa la concentración de los gases reportada por los sensores de cada estación.")
 
 
 def crear_grafico_de_barras_gases(df):
@@ -305,8 +309,26 @@ def main():
     df = pd.read_csv('data/air_qa.csv')
     df_1 = pd.read_csv('data/air_qa.csv')
     with st.sidebar:
-        st.sidebar.image(
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTIwzSGjLmVJXhHO2r8MmF4mzvpcIyWoyUyg&s")
+        st.markdown(
+            """
+                <style>
+                .rounded-image {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%; 
+                    object-fit: cover;
+                }
+                </style>
+                """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f'<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTIwzSGjLmVJXhHO2r8MmF4mzvpcIyWoyUyg&s" class="rounded-image">',
+            unsafe_allow_html=True
+        )
         st.header("Filtros: ")
         df['Fecha'] = pd.to_datetime(df['Fecha'], errors='coerce')
         df['Year'] = df['Fecha'].dt.year
