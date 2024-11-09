@@ -418,6 +418,7 @@ def main():
     st.markdown(hide_st_style, unsafe_allow_html=True)
 
     grafico_acumulacion_gases(df_1)
+    st.title('Visualización de niveles de contaminantes por ubicación de sensor')
 
     crear_mapa_de_gases(df_filtered)
     st.title('Otros Factores')
