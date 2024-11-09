@@ -432,7 +432,7 @@ def main():
     st.write(
         """
         <div style='text-align:center;'>
-            <h5>⚠️ Altas concentraciones de PM2.5, PM10, CO, and O3, incrementan la contaminación del aire. ⚠️</h5>
+            <h5>⚠️ Altas concentraciones de PM2.5, PM10, CO, y O3, incrementan la contaminación del aire. ⚠️</h5>
         </div>
         """,
         unsafe_allow_html=True
