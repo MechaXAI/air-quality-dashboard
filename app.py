@@ -437,7 +437,9 @@ def main():
         """,
         unsafe_allow_html=True
     )
-    st.image(image_url, use_container_width=True)
+    col1, mid, col3 = st.columns(3)
+    with mid:
+        st.image(image_url, width=500)
 
 
 if __name__ == "__main__":
